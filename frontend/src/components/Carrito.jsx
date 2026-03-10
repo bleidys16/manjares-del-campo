@@ -1,8 +1,10 @@
 import { X, Plus, Minus, ShoppingCart, Trash2 } from 'lucide-react'
 import { useCarrito } from '../context/CarritoContext'
+import { useNavigate } from 'react-router-dom'
 
 function Carrito() {
   const { carrito, abierto, setAbierto, quitarProducto, cambiarCantidad, totalPrecio } = useCarrito()
+  const navigate = useNavigate()
 
   return (
     <>
@@ -86,7 +88,10 @@ function Carrito() {
                 ${totalPrecio.toLocaleString('es-CO')}
               </span>
             </div>
-            <button className="w-full bg-green-600 text-white font-bold py-3.5 rounded-xl hover:bg-green-700 transition-colors uppercase tracking-wider text-sm">
+            <button
+              onClick={() => { setAbierto(false); navigate('/checkout') }}
+              className="w-full bg-green-600 text-white font-bold py-3.5 rounded-xl hover:bg-green-700 transition-colors uppercase tracking-wider text-sm"
+            >
               Ir al checkout →
             </button>
           </div>

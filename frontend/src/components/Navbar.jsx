@@ -24,7 +24,7 @@ function Navbar() {
 
       <div className="flex items-center gap-3">
         <a
-          href="https://wa.me/573053936447"
+          href="https://wa.me/573238849203"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#25d366] text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 hover:bg-[#1ebe5d] transition-colors uppercase tracking-wider"
