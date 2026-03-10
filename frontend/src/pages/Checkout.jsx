@@ -43,7 +43,7 @@ Total: $${totalPrecio.toLocaleString('es-CO')}
 Pedido realizado desde la web.
     `.trim()
 
-    const url = `https://wa.me/573001234567?text=${encodeURIComponent(mensaje)}`
+    const url = `https://wa.me/573238849203?text=${encodeURIComponent(mensaje)}`
     window.open(url, '_blank')
   }
 

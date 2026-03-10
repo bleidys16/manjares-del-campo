@@ -2,7 +2,7 @@ import { Facebook, Instagram, Twitter, MapPin, Smartphone, KeyRound, MessageCirc
 
 function Footer() {
   return (
-    <footer className="bg-[#052e16] text-white">
+    <footer className="bg-[#052e16] text-white" id="contacto">
 
       <div className="border-b border-white/10 px-14 py-10 flex items-center justify-between">
         <div>
