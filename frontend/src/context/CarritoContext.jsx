@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { useCarrito } from '../context/CarritoContext'
 import { pedidosApi } from '../lib/api'
 import { MapPin, User, Phone, ShoppingBag, MessageCircle, Smartphone, KeyRound, Banknote, Leaf, CheckCircle } from 'lucide-react'
 
