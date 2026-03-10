@@ -28,16 +28,18 @@ const categorias = [
 
 function Categorias() {
   return (
-    <section className="py-20 bg-white" id="catalogo">
-      <div className="max-w-7xl mx-auto px-6">
+    <section className="py-20 bg-white" id="categorias">
+      <div className="max-w-7xl mx-auto px-14">
 
         {/* Header */}
         <div className="flex items-end justify-between mb-10">
           <div>
-            <p className="text-green-600 text-sm font-medium uppercase tracking-widest mb-2">Explora</p>
-            <h2 className="text-4xl font-bold text-green-900">Categorías de productos</h2>
+            <p className="text-green-500 text-xs font-bold uppercase tracking-widest mb-2">Explora</p>
+            <h2 className="text-4xl font-bold text-green-900 tracking-tight">Categorías de productos</h2>
           </div>
-          <a href="#" className="text-green-600 text-sm font-medium hover:underline">Ver todo →</a>
+          <a href="#" className="text-green-700 text-sm font-semibold border-b border-green-200 pb-0.5 hover:border-green-500 transition-colors">
+            Ver todas →
+          </a>
         </div>
 
         {/* Grid */}
@@ -45,16 +47,18 @@ function Categorias() {
           {categorias.map((cat) => (
             <div
               key={cat.nombre}
-              className="bg-green-50 border border-transparent hover:border-green-200 hover:shadow-lg rounded-2xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1"
+              className="rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100"
             >
               <img
                 src={cat.img}
                 alt={cat.nombre}
-                className="w-full h-32 object-cover"
+                className="w-full h-36 object-cover"
               />
-              <div className="p-4 text-center">
-                <p className="font-semibold text-green-900 text-sm">{cat.nombre}</p>
-                <p className="text-gray-400 text-xs mt-1">{cat.cantidad} productos</p>
+              <div className="bg-white px-4 py-3 flex items-center justify-between">
+                <p className="font-700 text-green-900 text-sm font-bold">{cat.nombre}</p>
+                <span className="text-xs font-semibold text-green-700 bg-green-50 rounded-full px-2 py-0.5">
+                  {cat.cantidad}
+                </span>
               </div>
             </div>
           ))}
