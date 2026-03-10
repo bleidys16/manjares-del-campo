@@ -1,50 +1,80 @@
 import { useState } from 'react'
 import { useCarrito } from '../context/CarritoContext'
-import { MapPin, User, Phone, ShoppingBag, MessageCircle, Smartphone, KeyRound, Banknote, Leaf } from 'lucide-react'
+import { pedidosApi } from '../lib/api'
+import { MapPin, User, Phone, ShoppingBag, MessageCircle, Smartphone, KeyRound, Banknote, Leaf, CheckCircle } from 'lucide-react'
 
 const metodosPago = [
-  { id: 'nequi', label: 'Nequi', icon: Smartphone, desc: 'Te enviamos el QR para transferir' },
-  { id: 'daviplata', label: 'Daviplata', icon: KeyRound, desc: 'Te enviamos la llave para transferir' },
-  { id: 'contraentrega', label: 'Contra entrega', icon: Banknote, desc: 'Pagas en efectivo al recibir' },
+  { id: 'llave_nequi',     label: 'Nequi',           icon: Smartphone, desc: 'Te enviamos el número para transferir' },
+  { id: 'llave_daviplata', label: 'Daviplata',        icon: KeyRound,   desc: 'Te enviamos la llave para transferir' },
+  { id: 'qr',              label: 'Pago por QR',      icon: Banknote,   desc: 'Escanea el QR con tu app bancaria' },
 ]
 
 function Checkout() {
-  const { carrito, totalPrecio } = useCarrito()
-  const [form, setForm] = useState({ nombre: '', telefono: '', direccion: '' })
-  const [metodoPago, setMetodoPago] = useState('nequi')
+  const { carrito, totalPrecio, setCarrito } = useCarrito()
+  const [form, setForm]           = useState({ nombre: '', telefono: '', direccion: '', barrio: '', email: '' })
+  const [metodoPago, setMetodoPago] = useState('llave_nequi')
+  const [cargando, setCargando]   = useState(false)
+  const [pedidoCreado, setPedidoCreado] = useState(null)
+  const [error, setError]         = useState('')
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value })
-  }
+  const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleWhatsApp = () => {
+  const handlePedido = async () => {
     if (!form.nombre || !form.telefono || !form.direccion) {
-      alert('Por favor completa todos los campos.')
+      setError('Por favor completa nombre, teléfono y dirección.')
       return
     }
+    setError('')
+    setCargando(true)
 
-    const items = carrito.map(p =>
-      `• ${p.nombre} x${p.cantidad} — $${(p.precio * p.cantidad).toLocaleString('es-CO')}`
-    ).join('\n')
+    try {
+      const { pedido, whatsapp_url } = await pedidosApi.crear({
+        cliente: {
+          nombre:    form.nombre,
+          telefono:  form.telefono,
+          direccion: form.direccion,
+          barrio:    form.barrio,
+          email:     form.email || null,
+        },
+        items: carrito.map((p) => ({
+          producto_id:    p.id,
+          cantidad:       p.cantidad,
+          precio_unitario: p.precio,
+        })),
+        metodo_pago: metodoPago,
+      })
 
-    const mensaje = `
-Nuevo pedido - Colombia Verde
+      setPedidoCreado({ pedido, whatsapp_url })
+      setCarrito([])
+      window.open(whatsapp_url, '_blank')
 
-Cliente: ${form.nombre}
-Telefono: ${form.telefono}
-Direccion: ${form.direccion}
-Pago: ${metodoPago}
+    } catch (err) {
+      setError('Hubo un error al crear el pedido. Intenta de nuevo.')
+      console.error(err)
+    } finally {
+      setCargando(false)
+    }
+  }
 
-Productos:
-${items}
-
-Total: $${totalPrecio.toLocaleString('es-CO')}
-
-Pedido realizado desde la web.
-    `.trim()
-
-    const url = `https://wa.me/573238849203?text=${encodeURIComponent(mensaje)}`
-    window.open(url, '_blank')
+  // Pantalla de éxito
+  if (pedidoCreado) {
+    return (
+      <div className="min-h-screen bg-[#fffbf5] flex flex-col items-center justify-center px-6 text-center">
+        <CheckCircle size={64} className="text-green-500 mb-4" />
+        <h1 className="text-3xl font-bold text-green-900 mb-2">¡Pedido enviado!</h1>
+        <p className="text-gray-500 mb-1">N° <strong>{pedidoCreado.pedido.numero_pedido}</strong></p>
+        <p className="text-gray-400 text-sm mb-6">Te contactaremos por WhatsApp para confirmar y coordinar el pago.</p>
+        <a
+          href={pedidoCreado.whatsapp_url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="bg-[#25d366] text-white font-bold py-3 px-8 rounded-xl flex items-center gap-2 hover:bg-[#1ebe5d] transition-colors mb-4"
+        >
+          <MessageCircle size={18} /> Abrir WhatsApp
+        </a>
+        <a href="/" className="text-green-600 font-semibold hover:underline text-sm">← Volver al inicio</a>
+      </div>
+    )
   }
 
   if (carrito.length === 0) {
@@ -60,7 +90,6 @@ Pedido realizado desde la web.
   return (
     <div className="min-h-screen bg-[#fffbf5] pt-24 pb-16">
 
-      {/* Navbar simple */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-green-100 px-14 py-3 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3">
           <img src="/logo.png" alt="Colombia Verde" className="w-11 h-11 object-contain" />
@@ -76,8 +105,6 @@ Pedido realizado desde la web.
       </nav>
 
       <div className="max-w-5xl mx-auto px-6">
-
-        {/* Header */}
         <div className="mb-10">
           <a href="/" className="text-green-600 text-sm font-semibold hover:underline">← Volver</a>
           <h1 className="text-3xl font-bold text-green-900 mt-3 tracking-tight">Finalizar pedido</h1>
@@ -88,52 +115,44 @@ Pedido realizado desde la web.
 
           {/* Formulario */}
           <div className="space-y-6">
-
-            {/* Datos personales */}
             <div className="bg-white rounded-2xl p-6 border border-gray-100">
               <h2 className="font-bold text-green-900 text-lg mb-5">Tus datos</h2>
               <div className="space-y-4">
 
                 <div>
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                    <User size={13} /> Nombre completo
+                    <User size={13} /> Nombre completo *
                   </label>
-                  <input
-                    type="text"
-                    name="nombre"
-                    value={form.nombre}
-                    onChange={handleChange}
+                  <input type="text" name="nombre" value={form.nombre} onChange={handleChange}
                     placeholder="Ej: María García"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-colors"
-                  />
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-colors" />
                 </div>
 
                 <div>
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                    <Phone size={13} /> Teléfono
+                    <Phone size={13} /> Teléfono *
                   </label>
-                  <input
-                    type="tel"
-                    name="telefono"
-                    value={form.telefono}
-                    onChange={handleChange}
+                  <input type="tel" name="telefono" value={form.telefono} onChange={handleChange}
                     placeholder="Ej: 300 123 4567"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-colors"
-                  />
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-colors" />
                 </div>
 
                 <div>
                   <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
-                    <MapPin size={13} /> Dirección de entrega
+                    <MapPin size={13} /> Dirección de entrega *
                   </label>
-                  <input
-                    type="text"
-                    name="direccion"
-                    value={form.direccion}
-                    onChange={handleChange}
-                    placeholder="Ej: Cra 50 #80-20, Barranquilla"
-                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-colors"
-                  />
+                  <input type="text" name="direccion" value={form.direccion} onChange={handleChange}
+                    placeholder="Ej: Cra 50 #80-20"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-colors" />
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5 flex items-center gap-1.5">
+                    <MapPin size={13} /> Barrio
+                  </label>
+                  <input type="text" name="barrio" value={form.barrio} onChange={handleChange}
+                    placeholder="Ej: El Prado"
+                    className="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-green-400 transition-colors" />
                 </div>
 
               </div>
@@ -146,15 +165,10 @@ Pedido realizado desde la web.
                 {metodosPago.map((m) => {
                   const Icono = m.icon
                   return (
-                    <button
-                      key={m.id}
-                      onClick={() => setMetodoPago(m.id)}
+                    <button key={m.id} onClick={() => setMetodoPago(m.id)}
                       className={`w-full flex items-center gap-4 p-4 rounded-xl border-2 transition-all ${
-                        metodoPago === m.id
-                          ? 'border-green-500 bg-green-50'
-                          : 'border-gray-100 hover:border-gray-200'
-                      }`}
-                    >
+                        metodoPago === m.id ? 'border-green-500 bg-green-50' : 'border-gray-100 hover:border-gray-200'
+                      }`}>
                       <div className={`w-10 h-10 rounded-full flex items-center justify-center ${
                         metodoPago === m.id ? 'bg-green-500 text-white' : 'bg-gray-100 text-gray-500'
                       }`}>
@@ -174,25 +188,22 @@ Pedido realizado desde la web.
                 })}
               </div>
             </div>
-
           </div>
 
-          {/* Resumen del pedido */}
+          {/* Resumen */}
           <div>
             <div className="bg-white rounded-2xl p-6 border border-gray-100 sticky top-24">
               <h2 className="font-bold text-green-900 text-lg mb-5">Resumen del pedido</h2>
-
               <div className="space-y-3 mb-6">
                 {carrito.map((p) => (
                   <div key={p.id} className="flex items-center gap-3">
-                    <img src={p.img} alt={p.nombre} className="w-12 h-12 rounded-lg object-cover" />
+                    <img src={p.img} alt={p.nombre} className="w-12 h-12 rounded-lg object-cover"
+                      onError={(e) => { e.target.src = 'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=100&h=100&fit=crop' }} />
                     <div className="flex-1">
                       <p className="text-sm font-semibold text-green-900">{p.nombre}</p>
                       <p className="text-xs text-gray-400">x{p.cantidad}</p>
                     </div>
-                    <p className="text-sm font-bold text-green-900">
-                      ${(p.precio * p.cantidad).toLocaleString('es-CO')}
-                    </p>
+                    <p className="text-sm font-bold text-green-900">${(p.precio * p.cantidad).toLocaleString('es-CO')}</p>
                   </div>
                 ))}
               </div>
@@ -212,14 +223,18 @@ Pedido realizado desde la web.
                 </div>
               </div>
 
+              {error && (
+                <p className="text-red-500 text-sm font-semibold mb-4 text-center">{error}</p>
+              )}
+
               <button
-                onClick={handleWhatsApp}
-                className="w-full bg-[#25d366] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#1ebe5d] transition-colors uppercase tracking-wider text-sm"
+                onClick={handlePedido}
+                disabled={cargando}
+                className="w-full bg-[#25d366] text-white font-bold py-4 rounded-xl flex items-center justify-center gap-2 hover:bg-[#1ebe5d] transition-colors uppercase tracking-wider text-sm disabled:opacity-60 disabled:cursor-not-allowed"
               >
                 <MessageCircle size={18} />
-                Enviar pedido por WhatsApp
+                {cargando ? 'Enviando pedido...' : 'Enviar pedido por WhatsApp'}
               </button>
-
               <p className="text-center text-gray-400 text-xs mt-3">
                 Te contactaremos para confirmar tu pedido
               </p>
