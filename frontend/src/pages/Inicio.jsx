@@ -2,6 +2,7 @@ import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Categorias from '../components/Categorias'
 import Productos from '../components/Productos'
+import Nosotros from '../components/Nosotros'
 import Footer from '../components/Footer'
 
 function Inicio() {
@@ -11,6 +12,7 @@ function Inicio() {
       <Hero />
       <Categorias />
       <Productos />
+      <Nosotros />
       <Footer />
     </div>
   )
