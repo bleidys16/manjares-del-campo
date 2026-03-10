@@ -73,7 +73,7 @@ function Hero() {
           { num: '+50', label: 'Productos frescos' },
           { num: '100%', label: 'Natural y orgánico' },
           { num: '1 día', label: 'Entrega local' },
-          { num: '📱', label: 'Nequi · Daviplata' },
+          { num: 'Nequi', label: 'Daviplata · Efectivo' },
         ].map((s) => (
           <div key={s.label} className="py-5 text-center border-r border-white/[0.07] last:border-r-0">
             <div className="text-2xl font-bold text-green-300 leading-none tracking-tight">{s.num}</div>

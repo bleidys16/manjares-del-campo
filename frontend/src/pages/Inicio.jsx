@@ -4,6 +4,7 @@ import Categorias from '../components/Categorias'
 import Productos from '../components/Productos'
 import Nosotros from '../components/Nosotros'
 import Footer from '../components/Footer'
+import Carrito from '../components/Carrito'
 
 function Inicio() {
   return (
@@ -14,6 +15,7 @@ function Inicio() {
       <Productos />
       <Nosotros />
       <Footer />
+      <Carrito />
     </div>
   )
 }

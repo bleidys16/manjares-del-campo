@@ -1,6 +1,9 @@
 import { ShoppingCart, MessageCircle } from 'lucide-react'
+import { useCarrito } from '../context/CarritoContext'
 
 function Navbar() {
+  const { totalItems, setAbierto } = useCarrito()
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-green-100 px-14 py-3 flex items-center justify-between">
 
@@ -20,9 +23,8 @@ function Navbar() {
       </ul>
 
       <div className="flex items-center gap-3">
-
         <a
-          href="https://wa.me/573001234567"
+          href="https://wa.me/573053936447"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-[#25d366] text-white text-xs font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 hover:bg-[#1ebe5d] transition-colors uppercase tracking-wider"
@@ -30,14 +32,17 @@ function Navbar() {
           <MessageCircle size={15} />
           WhatsApp
         </a>
-
-        <button className="relative bg-green-50 border border-green-100 rounded-lg w-10 h-10 flex items-center justify-center hover:bg-green-100 transition-colors">
+        <button
+          onClick={() => setAbierto(true)}
+          className="relative bg-green-50 border border-green-100 rounded-lg w-10 h-10 flex items-center justify-center hover:bg-green-100 transition-colors"
+        >
           <ShoppingCart size={18} className="text-green-800" />
-          <span className="absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
-            0
-          </span>
+          {totalItems > 0 && (
+            <span className="absolute -top-1.5 -right-1.5 bg-orange-500 text-white text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+              {totalItems}
+            </span>
+          )}
         </button>
-
       </div>
 
     </nav>

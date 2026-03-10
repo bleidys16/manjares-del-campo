@@ -1,3 +1,5 @@
+import { useCarrito } from '../context/CarritoContext'
+
 const productos = [
   {
     id: 1,
@@ -74,6 +76,8 @@ const productos = [
 ]
 
 function Productos() {
+  const { agregarProducto } = useCarrito()
+
   return (
     <section className="py-20 bg-[#fffbf5]" id="productos">
       <div className="max-w-7xl mx-auto px-14">
@@ -96,7 +100,6 @@ function Productos() {
               key={p.id}
               className="bg-white rounded-2xl overflow-hidden border border-gray-100 hover:shadow-lg hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Imagen */}
               <div className="relative h-44 overflow-hidden">
                 <img
                   src={p.img}
@@ -110,11 +113,9 @@ function Productos() {
                 )}
               </div>
 
-              {/* Info */}
               <div className="p-4">
                 <p className="text-green-600 text-xs font-bold uppercase tracking-wider mb-1">{p.categoria}</p>
                 <p className="text-green-900 font-bold text-base mb-3">{p.nombre}</p>
-
                 <div className="flex items-center justify-between">
                   <div>
                     <span className="text-green-900 font-bold text-lg">
@@ -122,7 +123,10 @@ function Productos() {
                     </span>
                     <span className="text-gray-400 text-xs ml-1">/ {p.unidad}</span>
                   </div>
-                  <button className="bg-green-700 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-green-900 transition-colors">
+                  <button
+                    onClick={() => agregarProducto(p)}
+                    className="bg-green-700 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-green-900 transition-colors"
+                  >
                     + Agregar
                   </button>
                 </div>
