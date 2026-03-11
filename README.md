@@ -1,4 +1,4 @@
-# Colombia Verde
+# Manjares del campo
 
 > Plataforma web para la comercialización de productos del campo — frescos, naturales y de calidad — en el área metropolitana de Barranquilla.
 
@@ -6,7 +6,7 @@
 
 ## Descripción
 
-**Colombia Verde** es una tienda en línea orientada a conectar productores del campo con consumidores de Barranquilla y su área metropolitana. La plataforma permite explorar un catálogo de productos frescos y naturales, gestionar un carrito de compras, realizar pedidos sin necesidad de crear una cuenta, y confirmarlos a través de WhatsApp con pago por Nequi o Daviplata.
+**Manjares del campo** es una tienda en línea orientada a conectar productores del campo con consumidores de Barranquilla y su área metropolitana. La plataforma permite explorar un catálogo de productos frescos y naturales, gestionar un carrito de compras, realizar pedidos sin necesidad de crear una cuenta, y confirmarlos a través de WhatsApp con pago por Nequi o Daviplata.
 
 **Cliente:** Astrid Blanco  
 **Área de cobertura:** Área metropolitana de Barranquilla, Colombia
@@ -57,7 +57,7 @@
 ## Estructura del Proyecto
 
 ```
-colombia-verde/
+manjares-del-campo/
 │
 ├── frontend/                    # React + Vite
 │   ├── src/
@@ -106,8 +106,8 @@ admin           -- Usuario administrador (email + password_hash)
 
 ### 1. Clonar el repositorio
 ```bash
-git clone https://github.com/tu-usuario/colombia-verde.git
-cd colombia-verde
+git clone https://github.com/tu-usuario/manjares-del-campo.git
+cd manjares-del-campo
 ```
 
 ### 2. Configurar el Backend
@@ -128,7 +128,7 @@ JWT_SECRET=tu_clave_secreta
 
 Importar la base de datos en MySQL Workbench:
 ```bash
-# Abrir colombia_verde.sql en Workbench y ejecutar
+# Abrir manjares_del_campo.sql en Workbench y ejecutar
 ```
 
 Iniciar el servidor:
@@ -196,4 +196,4 @@ feature/...   # Ramas por módulo o funcionalidad
 
 ## Licencia
 
-Proyecto académico — © 2025 Astrid Blanco / Colombia Verde. Todos los derechos reservados.
+Proyecto académico — © 2025 Astrid Blanco / Manjares del campo. Todos los derechos reservados.
