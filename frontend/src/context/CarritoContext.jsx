@@ -16,6 +16,7 @@ export function CarritoProvider({ children }) {
       }
       return [...prev, { ...producto, cantidad: 1 }]
     })
+    setAbierto(true) // Abre el carrito
   }
 
   const quitarProducto = (id) => {
