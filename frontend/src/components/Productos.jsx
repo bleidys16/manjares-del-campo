@@ -14,6 +14,12 @@ function Productos() {
     cargarProductos(categoriaActiva)
   }, [categoriaActiva])
 
+  useEffect(() => {
+  const handler = (e) => setCategoriaActiva(e.detail)
+  window.addEventListener('filtrarCategoria', handler)
+  return () => window.removeEventListener('filtrarCategoria', handler)
+}, [])
+
   async function cargarProductos(categoria) {
     setCargando(true)
     try {
