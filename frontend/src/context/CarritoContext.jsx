@@ -6,7 +6,7 @@ export function CarritoProvider({ children }) {
   const [carrito, setCarrito] = useState([])
   const [abierto, setAbierto] = useState(false)
 
-  const agregarProducto = (producto) => {
+  const agregarAlCarrito = (producto) => {
     setCarrito((prev) => {
       const existe = prev.find((p) => p.id === producto.id)
       if (existe) {
@@ -16,28 +16,23 @@ export function CarritoProvider({ children }) {
       }
       return [...prev, { ...producto, cantidad: 1 }]
     })
-    setAbierto(true)
   }
 
-  const quitarProducto = (id) => {
+  const eliminarDelCarrito = (id) => {
     setCarrito((prev) => prev.filter((p) => p.id !== id))
   }
 
-  const cambiarCantidad = (id, cantidad) => {
-    if (cantidad < 1) return quitarProducto(id)
-    setCarrito((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, cantidad } : p))
-    )
-  }
-
-  const totalItems = carrito.reduce((acc, p) => acc + p.cantidad, 0)
   const totalPrecio = carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0)
+  const totalItems = carrito.reduce((acc, p) => acc + p.cantidad, 0)
 
   return (
     <CarritoContext.Provider value={{
-      carrito, setCarrito, abierto, setAbierto,
-      agregarProducto, quitarProducto, cambiarCantidad,
-      totalItems, totalPrecio
+      carrito, setCarrito,
+      abierto, setAbierto,
+      agregarAlCarrito,
+      eliminarDelCarrito,
+      totalPrecio,
+      totalItems
     }}>
       {children}
     </CarritoContext.Provider>
