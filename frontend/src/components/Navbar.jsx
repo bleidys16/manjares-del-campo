@@ -8,7 +8,7 @@ function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-md border-b border-green-100 px-14 py-3 flex items-center justify-between">
 
       <a href="/" className="flex items-center gap-3">
-        <img src="/logo.png" alt="Manjares del campo" className="w-11 h-11 object-contain" />
+        <img src="/logo.png" alt="Manjares del campo" className="w-16 h-16 object-contain" />
         <div>
           <p className="font-bold text-green-900 text-base leading-none">Manjares del campo</p>
           <p className="text-green-600 text-xs tracking-widest uppercase mt-0.5">Productos del Campo</p>
