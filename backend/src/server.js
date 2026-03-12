@@ -1,7 +1,6 @@
 // =============================================
 // src/server.js — Servidor principal Express
-// =============================================
-import 'dotenv/config'
+// =============================================cd
 import express from 'express'
 import cors from 'cors'
 
