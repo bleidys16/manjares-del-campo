@@ -5,7 +5,7 @@ import { productosApi } from '../lib/api'
 const CATEGORIAS = ['todos', 'frutas', 'verduras', 'tuberculos', 'lacteos', 'granos', 'hierbas', 'otros']
 
 function Productos() {
-  const { agregarProducto } = useCarrito()
+  const { agregarAlCarrito } = useCarrito()
   const [productos, setProductos] = useState([])
   const [cargando, setCargando] = useState(true)
   const [categoriaActiva, setCategoriaActiva] = useState('todos')
@@ -126,7 +126,7 @@ function Productos() {
                         <span className="text-gray-400 text-xs ml-1">/ {prod.unidad}</span>
                       </div>
                       <button
-                        onClick={() => agregarProducto(prod)}
+                        onClick={() => agregarAlCarrito(prod)}
                         disabled={p.stock === 0}
                         className="bg-green-700 text-white text-xs font-bold px-4 py-2 rounded-lg hover:bg-green-900 transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
                       >
