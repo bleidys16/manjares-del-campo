@@ -48,7 +48,6 @@ function Categorias() {
           </a>
         </div>
 
-        
         {/* boton onclik*/}
         <div
           key={cat.nombre}
@@ -69,6 +68,15 @@ function Categorias() {
           {categorias.map((cat) => (
             <div
               key={cat.nombre}
+              onClick={() => {
+                const event = new CustomEvent("filtrarCategoria", {
+                  detail: cat.nombre.toLowerCase(),
+                });
+                window.dispatchEvent(event);
+                document
+                  .getElementById("productos")
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
               className="rounded-xl overflow-hidden cursor-pointer shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1 border border-gray-100"
             >
               <img
