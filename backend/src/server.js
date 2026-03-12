@@ -1,6 +1,6 @@
 // =============================================
 // src/server.js — Servidor principal Express
-// =============================================cd
+// =============================================
 import express from 'express'
 import cors from 'cors'
 
@@ -20,6 +20,8 @@ app.use(cors({
   origin: '*',
   credentials: false,
 }))
+
+app.use(express.json())
 
 // ── Rutas ────────────────────────────────────
 app.use('/api/auth',          authRoutes)
