@@ -18,8 +18,18 @@ export function CarritoProvider({ children }) {
     })
   }
 
-  const eliminarDelCarrito = (id) => {
+  const quitarProducto = (id) => {
     setCarrito((prev) => prev.filter((p) => p.id !== id))
+  }
+
+  const cambiarCantidad = (id, nuevaCantidad) => {
+    if (nuevaCantidad <= 0) {
+      quitarProducto(id)
+    } else {
+      setCarrito((prev) =>
+        prev.map((p) => p.id === id ? { ...p, cantidad: nuevaCantidad } : p)
+      )
+    }
   }
 
   const totalPrecio = carrito.reduce((acc, p) => acc + p.precio * p.cantidad, 0)
@@ -30,7 +40,8 @@ export function CarritoProvider({ children }) {
       carrito, setCarrito,
       abierto, setAbierto,
       agregarAlCarrito,
-      eliminarDelCarrito,
+      quitarProducto,
+      cambiarCantidad,
       totalPrecio,
       totalItems
     }}>
