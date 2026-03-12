@@ -1,4 +1,3 @@
-cat > frontend/src/context/CarritoContext.jsx << 'EOF'
 import { createContext, useContext, useState } from 'react'
 
 const CarritoContext = createContext()
@@ -48,4 +47,3 @@ export function CarritoProvider({ children }) {
 export function useCarrito() {
   return useContext(CarritoContext)
 }
-EOF
