@@ -4,7 +4,7 @@ import Categorias from '../components/Categorias'
 import ComoComprar from '../components/ComoComprar'
 import Nosotros from '../components/Nosotros'
 import Footer from '../components/Footer'
-import Carrito from '../components/Carrito'
+import Carrito from '../components/CarritoContext'
 
 function Inicio() {
   return (
