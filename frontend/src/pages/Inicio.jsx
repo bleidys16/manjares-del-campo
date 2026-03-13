@@ -1,7 +1,7 @@
 import Navbar from '../components/Navbar'
 import Hero from '../components/Hero'
 import Categorias from '../components/Categorias'
-import Productos from '../components/Productos'
+import ComoComprar from '../components/ComoComprar'
 import Nosotros from '../components/Nosotros'
 import Footer from '../components/Footer'
 import Carrito from '../components/Carrito'
@@ -12,7 +12,7 @@ function Inicio() {
       <Navbar />
       <Hero />
       <Categorias />
-      <Productos />
+      <ComoComprar />
       <Nosotros />
       <Footer />
       <Carrito />

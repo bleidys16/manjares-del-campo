@@ -4,27 +4,22 @@ const categorias = [
   {
     img: "https://images.unsplash.com/photo-1619566636858-adf3ef46400b?w=400&h=400&fit=crop",
     nombre: "Frutas",
-    cantidad: 12,
   },
   {
     img: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=400&h=400&fit=crop",
     nombre: "Verduras",
-    cantidad: 18,
   },
   {
     img: "https://images.unsplash.com/photo-1628088062854-d1870b4553da?w=400&h=400&fit=crop",
     nombre: "Lácteos",
-    cantidad: 8,
   },
   {
     img: "https://images.unsplash.com/photo-1586201375761-83865001e31c?w=400&h=400&fit=crop",
     nombre: "Granos",
-    cantidad: 10,
   },
   {
     img: "https://images.unsplash.com/photo-1466637574441-749b8f19452f?w=400&h=400&fit=crop",
     nombre: "Hierbas",
-    cantidad: 6,
   },
 ]
 

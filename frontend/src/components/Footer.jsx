@@ -4,34 +4,13 @@ function Footer() {
   return (
     <footer className="bg-[#052e16] text-white" id="contacto">
 
-      <div className="border-b border-white/10 px-14 py-10 flex items-center justify-between">
-        <div>
-          <h3 className="text-2xl font-bold mb-1">Paga fácil con Nequi o Daviplata</h3>
-          <p className="text-white/50 text-sm">Sin tarjetas ni complicaciones. Transfiere y envía el comprobante por WhatsApp.</p>
-        </div>
-        <div className="flex gap-3">
-          <span className="bg-white/10 border border-white/15 rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-2">
-            <Smartphone size={15} /> Nequi
-          </span>
-          <span className="bg-white/10 border border-white/15 rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-2">
-            <KeyRound size={15} /> Daviplata
-          </span>
-          <span className="bg-white/10 border border-white/15 rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-2">
-          <Banknote size={15} /> Contra entrega
-          </span>
-          <span className="bg-white/10 border border-white/15 rounded-lg px-4 py-2 text-sm font-semibold flex items-center gap-2">
-            <MessageCircle size={15} /> WhatsApp
-          </span>
-        </div>
-      </div>
-
       <div className="px-14 py-12 grid grid-cols-4 gap-8">
 
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <img src="/logo.png" alt="Colombia Verde" className="w-11 h-11 object-contain" />
+            <img src="/logo.png" alt="Manjares del campo" className="w-16 h-16 object-contain" />
             <div>
-              <p className="font-bold text-sm leading-none">Colombia Verde</p>
+              <p className="font-bold text-sm leading-none">Manjares del campo</p>
               <p className="text-white/40 text-xs tracking-widest uppercase mt-0.5">Productos del Campo</p>
             </div>
           </div>
@@ -96,7 +75,7 @@ function Footer() {
       </div>
 
       <div className="border-t border-white/10 px-14 py-5 flex items-center justify-between">
-        <p className="text-white/30 text-xs">© 2025 Colombia Verde — Astrid Blanco. Todos los derechos reservados.</p>
+        <p className="text-white/30 text-xs">© 2025 Manjares del campo — Astrid Blanco. Todos los derechos reservados.</p>
         <p className="text-white/30 text-xs">Hecho con 💚 en Barranquilla</p>
       </div>
 
