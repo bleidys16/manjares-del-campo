@@ -8,7 +8,7 @@ function Footer() {
 
         <div>
           <div className="flex items-center gap-3 mb-4">
-            <img src="/logo.png" alt="Manjares del campo" className="w-16 h-16 object-contain" />
+            <img src="/logo.png" alt="Manjares del campo" className="w-14 h-14 object-contain" />
             <div>
               <p className="font-bold text-sm leading-none">Manjares del campo</p>
               <p className="text-white/40 text-xs tracking-widest uppercase mt-0.5">Productos del Campo</p>
@@ -44,13 +44,12 @@ function Footer() {
         <div>
           <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-white/70">Información</h4>
           <ul className="space-y-2.5">
-            {['Nosotros', 'Cómo comprar', 'Zonas de entrega', 'Preguntas frecuentes'].map((item) => (
-              <li key={item}>
-                <a href="#" className="text-white/45 text-sm hover:text-white transition-colors">{item}</a>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <li><a href="#nosotros" className="text-white/45 text-sm hover:text-white transition-colors">Nosotros</a></li>
+          <li><a href="#como-comprar" className="text-white/45 text-sm hover:text-white transition-colors">Cómo comprar</a></li>
+          <li><a href="/entregas" className="text-white/45 text-sm hover:text-white transition-colors">Zonas de entrega</a></li>
+          <li><a href="/faq" className="text-white/45 text-sm hover:text-white transition-colors">Preguntas frecuentes</a></li>
+        </ul>
+      </div>
 
         <div>
           <h4 className="text-sm font-bold uppercase tracking-wider mb-4 text-white/70">Contacto</h4>
