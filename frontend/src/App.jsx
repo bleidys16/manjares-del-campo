@@ -5,6 +5,7 @@ import Catalogo from './pages/Catalogo'
 import FAQ from './pages/FAQ'
 import Entregas from './pages/Entregas'
 
+
 function App() {
   return (
     <BrowserRouter>
